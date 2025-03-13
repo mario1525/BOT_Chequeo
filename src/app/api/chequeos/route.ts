@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json(); // 🔥 Obtener el body correctamente
     const res = new NextResponse(); // 🔥 Crear la respuesta correctamente
+    console.log("🔍 Payload recibido:", JSON.stringify(body, null, 2));
 
     const agent = new WebhookClient({ request: body, response: res }); // 🔥 Usar el body en lugar de req
 
