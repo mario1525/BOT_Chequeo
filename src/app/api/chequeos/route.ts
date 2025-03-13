@@ -33,10 +33,10 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json(); // 🔥 Obtener el body correctamente
-    const res = new NextResponse(); // 🔥 Crear la respuesta correctamente
+    //const res = new NextResponse(); // 🔥 Crear la respuesta correctamente
     console.log("🔍 Payload recibido:", JSON.stringify(body, null, 2));
 
-    const agent = new WebhookClient({ request: body, response: res }); // 🔥 Usar el body en lugar de req
+    const agent = new WebhookClient({ request: { body }, response: {} }); // 🔥 Usar el body en lugar de req
 
     function chequeo(agent: WebhookClient) {
       agent.add("ok ");
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
 
     await agent.handleRequest(intentMap);
 
-    return NextResponse.json({ success: true }); // 🔥 Respuesta JSON correcta
+    return NextResponse.json({ fulfillmentText: "ok" }); // 🔥 Respuesta JSON correcta
   } catch (error) {
     console.error("Error en el webhook:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
