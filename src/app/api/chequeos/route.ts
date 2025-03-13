@@ -31,26 +31,32 @@ import { WebhookClient } from "dialogflow-fulfillment";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json(); // Convertir la solicitud a JSON
-  const res = new NextResponse();
+  try {
+    const body = await req.json(); // 🔥 Obtener el body correctamente
+    const res = new NextResponse(); // 🔥 Crear la respuesta correctamente
 
-  const agent = new WebhookClient({ request: body, response: res });
+    const agent = new WebhookClient({ request: body, response: res }); // 🔥 Usar el body en lugar de req
 
-  function chequeo(agent: WebhookClient) {
-    agent.add("ok ");
+    function chequeo(agent: WebhookClient) {
+      agent.add("ok ");
+    }
+
+    function fallback(agent: WebhookClient) {
+      agent.add("Lo siento, no entendí eso. ¿Puedes repetirlo?");
+    }
+
+    const intentMap = new Map();
+    intentMap.set("1.1 Response CK", chequeo);
+    intentMap.set("Default Fallback Intent", fallback);
+
+    await agent.handleRequest(intentMap);
+
+    return NextResponse.json({ success: true }); // 🔥 Respuesta JSON correcta
+  } catch (error) {
+    console.error("Error en el webhook:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
-
-  function fallback(agent: WebhookClient) {
-    agent.add("Lo siento, no entendí eso. ¿Puedes repetirlo?");
-  }
-
-  const intentMap = new Map();
-  intentMap.set("1.1 Response CK", chequeo);
-  intentMap.set("Default Fallback Intent", fallback);
-
-  agent.handleRequest(intentMap);
-
-  return res;
 }
+
 
 
