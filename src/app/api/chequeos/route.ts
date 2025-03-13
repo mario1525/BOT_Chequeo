@@ -28,15 +28,22 @@
 
 
 import { WebhookClient } from "dialogflow-fulfillment";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json(); // 🔥 Obtener el body correctamente
-    //const res = new NextResponse(); // 🔥 Crear la respuesta correctamente
+    const body = await req.json();
     console.log("🔍 Payload recibido:", JSON.stringify(body, null, 2));
 
-    const agent = new WebhookClient({ request: { body }, response: {} }); // 🔥 Usar el body en lugar de req
+    // Crear un objeto de respuesta simulado para WebhookClient
+    let jsonResponse = {};
+    const res = {
+      json: (data: Record<string, unknown>) => {
+        jsonResponse = data; // Guardar la respuesta
+      },
+    };
+
+    const agent = new WebhookClient({ request: { body }, response: res });
 
     function chequeo(agent: WebhookClient) {
       agent.add("ok ");
@@ -52,12 +59,14 @@ export async function POST(req: NextRequest) {
 
     await agent.handleRequest(intentMap);
 
-    return NextResponse.json({ fulfillmentText: "ok" }); // 🔥 Respuesta JSON correcta
+    return new Response(JSON.stringify(jsonResponse), {
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
-    console.error("Error en el webhook:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    console.error("❌ Error en el webhook:", error);
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
-
-
-
