@@ -47,7 +47,7 @@ INSERT INTO chequeos (estado, fase_del_chequeo, id, cliente, ol, job, analisis_a
 CREATE OR REPLACE FUNCTION GetChequeos(
     p_Cliente TEXT,                    -- Filtrar por cliente (puede ser NULL)
     p_OL VARCHAR(50),                  -- Filtrar por OL (puede ser NULL)
-    p_Job VARCHAR(50)                -- Filtrar por Job (puede ser NULL)
+    p_CK VARCHAR(50)                -- Filtrar por Job (puede ser NULL)
     )
 RETURNS TABLE (
     id VARCHAR(8),
@@ -68,6 +68,6 @@ BEGIN
     FROM chequeos c
     WHERE (p_Cliente IS NULL OR c.cliente ILIKE CONCAT('%', p_Cliente, '%'))  -- Filtrar por cliente
     AND (p_OL IS NULL OR c.ol ILIKE CONCAT('%', p_OL, '%'))  -- Filtrar por OL
-    AND (p_Job IS NULL OR c.job ILIKE CONCAT('%', p_Job, '%'));  -- Filtrar por job
+    AND (p_CK IS NULL OR c.id ILIKE CONCAT('%', p_CK, '%'));  -- Filtrar por idx
 END; 
 $$ LANGUAGE plpgsql;
