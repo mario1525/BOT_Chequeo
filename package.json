@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "actions-on-google": "^2.14.0",
+    "dialogflow-fulfillment": "^0.5.0",
     "next": "15.2.2",
     "pg": "^8.14.0",
     "react": "^19.0.0",
@@ -17,6 +19,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/dialogflow-fulfillment": "^0.6.1",
     "@types/node": "^20",
     "@types/pg": "^8.11.11",
     "@types/react": "^19",

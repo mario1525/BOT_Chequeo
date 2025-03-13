@@ -12,3 +12,7 @@ export type Chequeo = {
     solicitado_por :string;
     localidad :string;
   }
+
+export type Mensaje = {
+  Response: string;
+}  
