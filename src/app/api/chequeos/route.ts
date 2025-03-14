@@ -1,6 +1,6 @@
 import { get } from "./Services";
 import { Chequeo } from "@/Types/Chequeos";
-import { WebhookClient, Payload, Platforms } from "dialogflow-fulfillment";
+import { WebhookClient} from "dialogflow-fulfillment";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -29,24 +29,18 @@ export async function POST(req: NextRequest) {
       if (!result || result.length === 0) {
         agent.add("No se encontraron resultados.");
       } else {
-        const enrichedResponse = {
-          platform: "ZOHOSALESIQ",
-          replies: result.map(
-            (item) =>
-              `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}.`
-          ),
-          input: {
-            options: ["Regresar al menú principal", "Consultar otro chequeo"],
-            type: "select",
-          },
-        };
-        const platformName = "ZOHOSALESIQ" as unknown as Platforms;
-        const payload = new Payload(platformName, enrichedResponse, {
-          sendAsMessage: true,
-          rawPayload: true,
-        });
-        agent.add(payload);
-      }
+        const Response =  result.map(
+          (item) =>
+           `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}. \n`)
+          agent.add(Response);
+          agent.setContext({
+            name: "chequeo_context",
+            lifespan: 5,
+            parameters: {
+              mensajeChequeos: "ok",
+            },
+          });
+      };      
     }
 
     async function chequeo(agent: WebhookClient) {
@@ -68,24 +62,19 @@ export async function POST(req: NextRequest) {
       if (!result || result.length === 0) {
         agent.add("No se encontraron resultados.");
       } else {
-        const enrichedResponse = {
-          platform: "ZOHOSALESIQ",
-          replies: result.map(
-            (item) =>
-              `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}.`
-          ),
-          input: {
-            options: ["Regresar al menú principal", "Consultar otro chequeo"],
-            type: "select",
-          },
-        };
-        const platformName = "ZOHOSALESIQ" as unknown as Platforms;
-        const payload = new Payload(platformName, enrichedResponse, {
-          sendAsMessage: true,
-          rawPayload: true,
-        });
-        agent.add(payload);
-      }
+        const Response =  result.map(
+          (item) =>
+           `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}. \n`)
+          agent.add(Response);
+          agent.setContext({
+            name: "chequeo_context",
+            lifespan: 5,
+            parameters: {
+              mensajeChequeos: "ok",
+            },
+          });
+      };
+
     }
 
     function fallback(agent: WebhookClient) {
