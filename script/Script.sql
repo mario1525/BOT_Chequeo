@@ -43,7 +43,6 @@ INSERT INTO chequeos (estado, fase_del_chequeo, id, cliente, ol, job, analisis_a
 
 
 --- sp Gt 
-
 CREATE OR REPLACE FUNCTION GetChequeos(
     p_Cliente TEXT,                    -- Filtrar por cliente (puede ser NULL)
     p_OL VARCHAR(50),                  -- Filtrar por OL (puede ser NULL)

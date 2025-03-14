@@ -46,15 +46,17 @@ export async function POST(req: NextRequest) {
           },
         });
       } else {
+        const responseText = result
+        .map(
+          (item) =>
+            `El Chequeo con ID: ${item.id}, relacionada a la OL: ${item.ol}, se encuentra en la Fase de: ${item.fase_del_chequeo}`
+        )
+        .join("\n");
         agent.setContext({
           name: "chequeo_context",
           lifespan: 5,
           parameters: {
-            chequeos: result.map((item) => ({
-              chequeoId: item.id,
-              ol: item.ol,
-              fase: item.fase_del_chequeo,
-            })),
+            chequeos: responseText
           },
         });
       }
@@ -85,15 +87,17 @@ export async function POST(req: NextRequest) {
         if (!result || result.length === 0) {
           agent.add("No se encontraron resultados.");
         } else {
+          const responseText = result
+          .map(
+            (item) =>
+              `El Chequeo con ID: ${item.id}, relacionada a la OL: ${item.ol}, se encuentra en la Fase de: ${item.fase_del_chequeo}`
+          )
+          .join("\n");
           agent.setContext({
             name: "chequeo_context",
             lifespan: 5,
             parameters: {
-              chequeos: result.map((item) => ({
-                chequeoId: item.id,
-                ol: item.ol,
-                fase: item.fase_del_chequeo,
-              })),
+              chequeos: responseText
             },
           });          
         }
@@ -111,15 +115,17 @@ export async function POST(req: NextRequest) {
             },
           });
         } else {
+          const responseText = result
+          .map(
+            (item) =>
+              `El Chequeo con ID: ${item.id}, relacionada a la OL: ${item.ol}, se encuentra en la Fase de: ${item.fase_del_chequeo}`
+          )
+          .join("\n");
           agent.setContext({
             name: "chequeo_context",
             lifespan: 5,
             parameters: {
-              chequeos: result.map((item) => ({
-                chequeoId: item.id,
-                ol: item.ol,
-                fase: item.fase_del_chequeo,
-              })),
+              chequeos: responseText
             },
           });
           
