@@ -70,3 +70,22 @@ BEGIN
     AND (p_CK IS NULL OR c.id ILIKE CONCAT('%', p_CK, '%'));  -- Filtrar por idx
 END; 
 $$ LANGUAGE plpgsql;
+
+
+
+
+-- devolver el numero de chequeos solicitados 
+CREATE PROCEDURE ContarChequeosPorSolicitante
+    @Solicitante VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        solicitado_por,
+        COUNT(*) AS cantidad_chequeos
+    FROM chequeos
+    WHERE solicitado_por = @Solicitante
+    GROUP BY solicitado_por;
+END;
+
