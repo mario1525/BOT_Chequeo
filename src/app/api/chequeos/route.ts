@@ -20,37 +20,62 @@ export async function POST(req: NextRequest) {
 
     const agent = new WebhookClient({ request: { body }, response: res });
 
-    // se pasa el CK
+    // se pasa el Cliente
     async function chequeoCl(agent: WebhookClient) {
       const queryText = body.queryResult?.queryText;
 
       if (!queryText) {
-        agent.add("No se recibió un código válido.");
+        agent.setContext({
+          name: "chequeo_context",
+          lifespan: 5,
+          parameters: {
+            chequeoId: "No se recibió un código válido.",              
+          },
+        });
         return;
       }
 
       const result: Chequeo[] = await  get(queryText,"","");
 
       if (!result || result.length === 0) {
-        agent.add("No se encontraron resultados.");
+        agent.setContext({
+          name: "chequeo_context",
+          lifespan: 5,
+          parameters: {
+            chequeoId: "No se recibió un código válido.",              
+          },
+        });
       } else {
-        const responseText = result
-          .map(
-            (item) =>
-              `El ID del chequeo: ${item.id}, relacionado a la OL: ${item.ol} se encuentra en la fase: "${item.fase_del_chequeo}. \n"`
-          )
-          .join("\n");
-        agent.add(responseText);
+        agent.setContext({
+          name: "chequeo_context",
+          lifespan: 5,
+          parameters: {
+            chequeos: result.map((item) => ({
+              chequeoId: item.id,
+              ol: item.ol,
+              fase: item.fase_del_chequeo,
+            })),
+          },
+        });
       }
+
     }
 
-    
+
+
+
     // se pasa la OL o el CK
     async function chequeo(agent: WebhookClient) {
       const queryText = body.queryResult?.queryText;
 
       if (!queryText) {
-        agent.add("No se recibió un código válido.");
+        agent.setContext({
+          name: "chequeo_context",
+          lifespan: 5,
+          parameters: {
+            chequeoId: "No se recibió un código válido.",              
+          },
+        });
         return;
       }
 
@@ -60,13 +85,17 @@ export async function POST(req: NextRequest) {
         if (!result || result.length === 0) {
           agent.add("No se encontraron resultados.");
         } else {
-          const responseText = result
-            .map(
-              (item) =>
-                `El ID del chequeo: ${item.id}, relacionado a la OL: ${item.ol} se encuentra en la fase: "${item.fase_del_chequeo}".`
-            )
-            .join("\n");
-          agent.add(responseText);
+          agent.setContext({
+            name: "chequeo_context",
+            lifespan: 5,
+            parameters: {
+              chequeos: result.map((item) => ({
+                chequeoId: item.id,
+                ol: item.ol,
+                fase: item.fase_del_chequeo,
+              })),
+            },
+          });          
         }
 
       } else
@@ -74,15 +103,26 @@ export async function POST(req: NextRequest) {
         const result: Chequeo[] = await  get("", queryText, "");
 
         if (!result || result.length === 0) {
-          agent.add("No se encontraron resultados.");
+          agent.setContext({
+            name: "chequeo_context",
+            lifespan: 5,
+            parameters: {
+              chequeoId: "No se recibió un código válido.",              
+            },
+          });
         } else {
-          const responseText = result
-            .map(
-              (item) =>
-                `El ID del chequeo: ${item.id}, relacionado a la OL: ${item.ol} se encuentra en la fase: "${item.fase_del_chequeo}".`
-            )
-            .join("\n");
-          agent.add(responseText);
+          agent.setContext({
+            name: "chequeo_context",
+            lifespan: 5,
+            parameters: {
+              chequeos: result.map((item) => ({
+                chequeoId: item.id,
+                ol: item.ol,
+                fase: item.fase_del_chequeo,
+              })),
+            },
+          });
+          
         }
       } 
 
@@ -92,7 +132,13 @@ export async function POST(req: NextRequest) {
 
 
     function fallback(agent: WebhookClient) {
-      agent.add("Lo siento, no entendí eso. ¿Puedes repetirlo?");
+      agent.setContext({
+        name: "chequeo_context",
+        lifespan: 5,
+        parameters: {
+          chequeoId: "No se recibió un código válido.",              
+        },
+      });
     }
 
     const intentMap = new Map();
@@ -113,3 +159,4 @@ export async function POST(req: NextRequest) {
     });
   }
 }
+
