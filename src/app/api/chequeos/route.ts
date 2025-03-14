@@ -36,9 +36,6 @@ export async function POST(req: NextRequest) {
           // Llamar a la intención "prueba" después de la respuesta
           agent.setFollowupEvent({
           name: "Continuar_chat", // Nombre del evento en Dialogflow
-          parameters: {
-            mensaje: "Chequeo realizado con éxito",
-          },
         });  
       };      
     }
@@ -69,9 +66,6 @@ export async function POST(req: NextRequest) {
           // Llamar a la intención "prueba" después de la respuesta
           agent.setFollowupEvent({
           name: "Continuar_chat", // Nombre del evento en Dialogflow
-          parameters: {
-            mensaje: "Chequeo realizado con éxito",
-          },
         });  
       };
 
