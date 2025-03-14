@@ -33,13 +33,13 @@ export async function POST(req: NextRequest) {
           (item) =>
            `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}. \n`)
           agent.add(Response);
-          agent.setContext({
-            name: "chequeo_context",
-            lifespan: 5,
-            parameters: {
-              mensajeChequeos: "ok",
-            },
-          });
+          // Llamar a la intención "prueba" después de la respuesta
+          agent.setFollowupEvent({
+          name: "?. Continuar_chat", // Nombre del evento en Dialogflow
+          parameters: {
+            mensaje: "Chequeo realizado con éxito",
+          },
+        });  
       };      
     }
 
@@ -66,13 +66,13 @@ export async function POST(req: NextRequest) {
           (item) =>
            `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}. \n`)
           agent.add(Response);
-          agent.setContext({
-            name: "chequeo_context",
-            lifespan: 5,
-            parameters: {
-              mensajeChequeos: "ok",
-            },
-          });
+          // Llamar a la intención "prueba" después de la respuesta
+          agent.setFollowupEvent({
+          name: "?. Continuar_chat", // Nombre del evento en Dialogflow
+          parameters: {
+            mensaje: "Chequeo realizado con éxito",
+          },
+        });  
       };
 
     }
