@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
               `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}.`
           )
           .join("\n");
-        agent.add(responseText);
+          agent.add(responseText + "\n\n¿Desea volver al menú principal? \n 1. Sí \n 2. No");
         //agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No"); 
       };      
     }
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
               `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}.`
           )
           .join("\n");
-        agent.add(responseText);
+          agent.add(responseText + "\n\n¿Desea volver al menú principal? \n 1. Sí \n 2. No");
         //agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No");
       };
 
