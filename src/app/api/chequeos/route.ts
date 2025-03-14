@@ -13,8 +13,7 @@ export async function POST(req: NextRequest) {
         jsonResponse = data;
       },
     };
-
-    const agent = new WebhookClient({ request: { body }, response: res });
+    const agent = new WebhookClient({ request:  { body }, response: res });
 
     async function chequeoCl(agent: WebhookClient) {
       const queryText = body.queryResult?.queryText;
@@ -36,7 +35,7 @@ export async function POST(req: NextRequest) {
           )
           .join("\n");
         agent.add(responseText);
-        agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No"); 
+        //agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No"); 
       };      
     }
 
@@ -66,7 +65,7 @@ export async function POST(req: NextRequest) {
           )
           .join("\n");
         agent.add(responseText);
-        agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No");
+        //agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No");
       };
 
     }
