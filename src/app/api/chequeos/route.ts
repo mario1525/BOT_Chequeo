@@ -34,9 +34,7 @@ export async function POST(req: NextRequest) {
            `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}. \n`)
           agent.add(Response);
           // Llamar a la intención "prueba" después de la respuesta
-          agent.setFollowupEvent({
-          name: "Continuar_chat", // Nombre del evento en Dialogflow
-        });  
+          agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No ")  
       };      
     }
 
@@ -64,9 +62,7 @@ export async function POST(req: NextRequest) {
            `El chequeo con ID ${item.id}, relacionado a la OL ${item.ol}, se encuentra en la fase de ${item.fase_del_chequeo}. \n`)
           agent.add(Response);
           // Llamar a la intención "prueba" después de la respuesta
-          agent.setFollowupEvent({
-          name: "Continuar_chat", // Nombre del evento en Dialogflow
-        });  
+          agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No ")
       };
 
     }
