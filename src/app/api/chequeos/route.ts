@@ -39,6 +39,18 @@ export async function POST(req: NextRequest) {
       };      
     }
 
+    // Método para Crear un chequeo
+    async function chequeoCreate(agent: WebhookClient) {
+      const queryText = body.queryResult?.queryText;
+
+      if (!queryText) {
+        agent.add("No se recibió un código válido.");
+        return;      }
+
+        const responseText = "El chequeo fue creado exitosamente.";
+          agent.add(responseText + "\n\n¿Desea volver al menú principal? \n 1. Sí \n 2. No");      
+    }
+
     async function chequeo(agent: WebhookClient) {
       const queryText = body.queryResult?.queryText;
 
@@ -77,6 +89,7 @@ export async function POST(req: NextRequest) {
     const intentMap = new Map();
     intentMap.set("1.1. Response", chequeo);
     intentMap.set("2.1. Response", chequeoCl);
+    intentMap.set("238. Ronse",chequeoCreate);
     intentMap.set("Default Fallback Intent", fallback);
 
     await agent.handleRequest(intentMap);
