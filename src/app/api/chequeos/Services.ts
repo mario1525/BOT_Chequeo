@@ -12,8 +12,21 @@ export async function get(cliente : string, ol : string, CK: string): Promise<Ch
     }
   }
 
+  // Método para obtener las localidades
+export async function getLocalidades(cliente : string, localidad : string): Promise<string[]> {
+  try {
+    const result = await query("SELECT * from getClient($1, $2)", [cliente, localidad]);
+    return result.rows as string[];
+  } catch (error) {
+    console.error('Error in Service:', error);
+    throw new Error('Error calling stored procedure');
+  }
+}
 
-  export async function sendNotifications(Correo: string, Chequeo: Chequeo): Promise<{ message: string }> {
+  
+
+
+  export async function sendNotifications( solicitud: string, cliente: string): Promise<{ message: string }> {
 
     const url = "https://smtp-ginvent.azurewebsites.net/smtp/custom";
    
@@ -21,20 +34,19 @@ export async function get(cliente : string, ol : string, CK: string): Promise<Ch
     try {
 
        // Enviar mensaje para el cliente
-      const responseCliente = await fetch(`${url}/users/smtp`, {
+      const responseCliente = await fetch(`${url}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to: Correo,
-          subject: `Confirmación de solicitud de chequeo / OL ${Chequeo.ol} / JOB ${Chequeo.job}`,
+          to: "mario.beltran@sgs.com;jesus.sanjuan@sgs.com",
+          subject: `Solicitud de chequeo / cliente ${cliente}`,
           html: `<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmación de Registro - Chequeo de Muestras</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -79,22 +91,17 @@ export async function get(cliente : string, ol : string, CK: string): Promise<Ch
 </head>
 <body>
     <div class="container">
-        <h1>Estimado cliente,</h1>
-        <p>Le informamos que su solicitud para el chequeo de muestras ha sido registrada exitosamente con el número de chequeo <span class="highlight">CK00873</span>.</p>
-        <p>Los resultados estarán disponibles en un plazo de <span class="highlight">tres (3) días hábiles</span> a partir de la fecha de emisión de este correo.</p>
+        <h1>Estimados,</h1>
+        <p>Les informamos que hemos recibido una solicitud para el chequeo de muestras.</p>
 
         <div class="product-info">
-            <p><span class="highlight">Detalles del chequeo:</span></p>
-            <p><span class="highlight">Job:</span> ${Chequeo.job}</p>
-            <p><span class="highlight">Análisis a realizar:</span> ${Chequeo.analisis_a_chequear}</p>
-            <p><span class="highlight">Número de muestras:</span> ${Chequeo.numero_muestras}</p>
+            <p><span class="highlight">Detalles de la solicitud:</span></p>
+            <p>${solicitud}</p>
         </div>
 
-        <p>Para consultar el estado de sus muestras, puede acceder a la siguiente plataforma: <a href="https://bot-chequeo.vercel.app/" target="_blank">https://sgs.com/es-co/chequeos</a>.</p>
-        <p>Agradecemos su confianza en nuestros servicios y estamos a su disposición para cualquier consulta adicional.</p>
+        <p>Agradecemos su pronta gestión para procesar esta solicitud.</p>
         <p>Atentamente,</p>
         <p><strong>SGS Colombia</strong></p>
-        <p>Correo de atención: <a href="mailto:customercaremin@sgs.com">customercaremin@sgs.com</a></p>
 
         <div class="footer">
             <p>Este es un mensaje generado automáticamente. Por favor, no responda a este correo.</p>
@@ -102,9 +109,8 @@ export async function get(cliente : string, ol : string, CK: string): Promise<Ch
     </div>
 </body>
 </html>
-
   `
-        }),
+      }),
       });
   
       if (!responseCliente.ok) {
