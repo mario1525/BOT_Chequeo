@@ -28,7 +28,7 @@ export async function getLocalidades(cliente : string, localidad : string): Prom
 
   export async function sendNotifications( solicitud: string, cliente: string): Promise<{ message: string }> {
 
-    const url = "https://smtp-ginvent.azurewebsites.net/smtp/custom";
+    const url = "https://smtp-ginvent.azurewebsites.net/service/smtp/custom";
    
  
     try {
