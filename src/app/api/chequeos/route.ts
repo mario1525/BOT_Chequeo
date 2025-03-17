@@ -21,8 +21,8 @@ export async function POST(req: NextRequest) {
       parameters: Record<string, string>;
     }
 
-    console.log(body);
-    console.log(body.queryResult?.outputContexts);
+    //console.log(body);
+    //console.log(body.queryResult?.outputContexts);
 
     // metodo para mostrar los chequeos por cliente 
     async function chequeoCl(agent: WebhookClient) {
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
         ctx.name.includes("data_inicial")
     );
     const cliente = contextoDataInicial.parameters?.cliente;
-    console.log("Cliente:", cliente);
+    console.log("Cliente: ", cliente);
 
       if (!cliente) {
         agent.add("No se recibió un código válido.");
