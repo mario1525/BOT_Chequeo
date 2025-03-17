@@ -39,7 +39,7 @@ export async function getLocalidades(cliente : string, localidad : string): Prom
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
+        body: JSON.stringify( {key:{
           to: "mario.beltran@sgs.com;jesus.sanjuan@sgs.com",
           subject: `Solicitud de chequeo / cliente ${cliente}`,
           html: `<!DOCTYPE html>
@@ -110,7 +110,7 @@ export async function getLocalidades(cliente : string, localidad : string): Prom
 </body>
 </html>
   `
-      }),
+      }}),
       });
   
       if (!responseCliente.ok) {
