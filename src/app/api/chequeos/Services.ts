@@ -34,7 +34,7 @@ export async function getLocalidades(cliente : string, localidad : string): Prom
     try {
 
        // Enviar mensaje para el cliente
-      const responseCliente = await fetch(`${url}`, {
+      const responseCliente = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

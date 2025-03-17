@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
         agent.add("No se recibió un código válido.");
         return;      }
 
-        const res = await sendNotifications(cliente, querymessage);
+        const res = await sendNotifications( querymessage, cliente);
       
           agent.add(res + "\n\n¿Desea volver al menú principal? \n 1. Sí \n 2. No");      
     }
