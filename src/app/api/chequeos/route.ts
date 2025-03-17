@@ -31,14 +31,14 @@ export async function POST(req: NextRequest) {
         ctx.name.includes("data_inicial")
     );
     const cliente = contextoDataInicial.parameters?.cliente;
-    console.log("Cliente: ", cliente);
+    console.log("Cliente: ", cliente[0]);
 
       if (!cliente) {
         agent.add("No se recibió un código válido.");
         return;
       }
 
-      const result: Chequeo[] = await get(cliente, "", "");
+      const result: Chequeo[] = await get(cliente[0], "", "");
 
       if (!result || result.length === 0) {
         agent.add("No se encontraron resultados.");
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         ctx.name.includes("data_inicial")
     );
     const cliente = contextoDataInicial.parameters?.cliente;
-    console.log("Cliente:", cliente);
+    console.log("Cliente:", cliente[0]);
 
       if (!queryText) {
         agent.add("No se recibió un código válido.");
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
         ctx.name.includes("data_inicial")
     );
     const cliente = contextoDataInicial.parameters?.cliente;
-    console.log("Cliente:", cliente);
+    console.log("Cliente:", cliente[0]);
 
       if (!queryClient) {
         agent.add("No se recibió un código válido.");
