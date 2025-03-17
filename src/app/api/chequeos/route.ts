@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     const agent = new WebhookClient({ request:  { body }, response: res });
 
     console.log(body);
+    console.log(body.queryResult?.outputContexts);
 
     // metodo para mostrar los chequeos por cliente 
     async function chequeoCl(agent: WebhookClient) {
