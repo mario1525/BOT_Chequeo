@@ -15,19 +15,30 @@ export async function POST(req: NextRequest) {
     };
     const agent = new WebhookClient({ request:  { body }, response: res });
 
+    interface Context {
+      name: string;
+      lifespanCount?: number;
+      parameters: Record<string, string>;
+    }
+
     console.log(body);
     console.log(body.queryResult?.outputContexts);
 
     // metodo para mostrar los chequeos por cliente 
     async function chequeoCl(agent: WebhookClient) {
-      const queryText = body.queryResult?.queryText;
+            const queryClient = body.queryResult?.outputContexts || [];
+      const contextoDataInicial = queryClient.find((ctx: Context) => 
+        ctx.name.includes("data_inicial")
+    );
+    const cliente = contextoDataInicial.parameters?.cliente;
+    console.log("Cliente:", cliente);
 
-      if (!queryText) {
+      if (!cliente) {
         agent.add("No se recibió un código válido.");
         return;
       }
 
-      const result: Chequeo[] = await get(queryText, "", "");
+      const result: Chequeo[] = await get(cliente, "", "");
 
       if (!result || result.length === 0) {
         agent.add("No se encontraron resultados.");
@@ -43,17 +54,22 @@ export async function POST(req: NextRequest) {
       };      
     }
 
-        // metodo para mostrar los chequeos por localidad
+    // metodo para mostrar los chequeos por localidad
     async function chequeoLocalidad(agent: WebhookClient) {
       const queryText = body.queryResult?.queryText;
-      const queryClient = body.queryResult?.queryText;
+      const queryClient = body.queryResult?.outputContexts || [];
+      const contextoDataInicial = queryClient.find((ctx: Context) => 
+        ctx.name.includes("data_inicial")
+    );
+    const cliente = contextoDataInicial.parameters?.cliente;
+    console.log("Cliente:", cliente);
 
       if (!queryText) {
         agent.add("No se recibió un código válido.");
         return;
       }
 
-      const result: string[] = await getLocalidades( queryClient,queryText);
+      const result: string[] = await getLocalidades( cliente,queryText);
 
       if (!result || result.length === 0) {
         agent.add("No se encontraron resultados.");
@@ -69,13 +85,18 @@ export async function POST(req: NextRequest) {
     // Método para Crear un chequeo
     async function chequeoCreate(agent: WebhookClient) {
       const querymessage = body.queryResult?.queryText;
-      const queryClient = body.queryResult?.queryText;
+      const queryClient = body.queryResult?.outputContexts || [];
+      const contextoDataInicial = queryClient.find((ctx: Context) => 
+        ctx.name.includes("data_inicial")
+    );
+    const cliente = contextoDataInicial.parameters?.cliente;
+    console.log("Cliente:", cliente);
 
       if (!queryClient) {
         agent.add("No se recibió un código válido.");
         return;      }
 
-        const res = await sendNotifications(queryClient, querymessage);
+        const res = await sendNotifications(cliente, querymessage);
       
           agent.add(res + "\n\n¿Desea volver al menú principal? \n 1. Sí \n 2. No");      
     }
