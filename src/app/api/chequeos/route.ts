@@ -166,10 +166,10 @@ export async function POST(req: NextRequest) {
 
     const intentMap = new Map();
     intentMap.set("1.1. Response", chequeo);
-    intentMap.set("2.1. Response", chequeoCl);
+    intentMap.set("2. Response", chequeoCl);
     intentMap.set("3.3.1. Response", chequeoCreate);
     intentMap.set("3.1.1. Response", Reporte);
-    intentMap.set("3.1.1. Response", chequeoLocalidad);
+    intentMap.set("3.2.1. Response", chequeoLocalidad);
     intentMap.set("Default Fallback Intent", fallback);
 
     await agent.handleRequest(intentMap);
