@@ -151,7 +151,7 @@ export async function POST(req: NextRequest) {
       agent.add( "para continuar ingrese su codigo de seguridad" );
       agent.setContext({
         name: "URL_ARCHIVO",
-        lifespan: 1, // El contexto durará 5 turnos en la conversación
+        lifespan: 3, // El contexto durará 5 turnos en la conversación
         parameters: {
           Url: url
         },
