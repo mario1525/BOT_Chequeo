@@ -15,7 +15,7 @@ export async function get(cliente : string, ol : string, CK: string): Promise<Ch
   // Método para obtener las localidades
 export async function getLocalidades(cliente : string, localidad : string): Promise<string[]> {
   try {
-    const result = await query("SELECT * from getClient($1, $2)", [cliente, localidad]);
+    const result = await query("SELECT * from getClients($1, $2)", [cliente, localidad]);
     return result.rows as string[];
   } catch (error) {
     console.error('Error in Service:', error);

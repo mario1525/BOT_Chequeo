@@ -139,23 +139,23 @@ export async function POST(req: NextRequest) {
      let url : string = ""
       
       if (queryText == "CO2500197.025") {
-          url = "712"
+          url = "https://raw.githubusercontent.com/Jsanjuan23/Iconos/a8ced1a1e93aa4ea1dd0ec42f481aec63bd44607/ejemplo.pdf"
       } 
       if (queryText == "co2500197.026") {
-         url = "712"
+         url = "https://raw.githubusercontent.com/Jsanjuan23/Iconos/a8ced1a1e93aa4ea1dd0ec42f481aec63bd44607/ejemplo.pdf"
       }
       if (queryText == "CO2500293.001") {
-        url = "712"
+        url = "https://raw.githubusercontent.com/Jsanjuan23/Iconos/a8ced1a1e93aa4ea1dd0ec42f481aec63bd44607/ejemplo.pdf"
       }
 
-      agent.add( "para continuar ingrese su codigo de seguridad" + url );
-      // agent.contexts.set({
-      //   name: "Reporte",
-      //   lifespan: 1, // El contexto durará 5 turnos en la conversación
-      //   parameters: {
-      //     Url: url
-      //   },
-      // });
+      agent.add( "para continuar ingrese su codigo de seguridad" );
+      agent.setContext({
+        name: "URL_ARCHIVO",
+        lifespan: 1, // El contexto durará 5 turnos en la conversación
+        parameters: {
+          Url: url
+        },
+      });
 
       
     }
