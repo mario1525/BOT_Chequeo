@@ -69,12 +69,13 @@ export async function POST(req: NextRequest) {
         return;
       }
 
-      const result: string[] = await getLocalidades( cliente,queryText);
+      const result: string = await getLocalidades( cliente,queryText);
 
       if (!result || result.length === 0) {
         agent.add("No se encontraron resultados.");
       } else {
-        const responseText = `Se tienen ${result[0]} Muestras en chequeo en la localidad de ${queryText}.`;
+        console.log("Resultado:", result);
+        const responseText = `Se tienen ${result} Muestras en chequeo en la localidad de ${queryText}.`;
          
           agent.add(responseText + "\n\n¿Desea volver al menú principal? \n 1. Sí \n 2. No");
         //agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No"); 
