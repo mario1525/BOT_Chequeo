@@ -16,7 +16,7 @@ export async function get(cliente : string, ol : string, CK: string): Promise<Ch
 export async function getLocalidades(cliente : string, localidad : string): Promise<string> {
   try {
     const result = await query("SELECT * from getClients($1, $2)", [cliente, localidad]);
-    return result.rows[0] as string;
+    return result.rows[0].getclients as string;
   } catch (error) {
     console.error('Error in Service:', error);
     throw new Error('Error calling stored procedure');
