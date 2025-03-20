@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
 
       const result: string = await getLocalidades( cliente,queryText);
 
-      if (!result || result.length === 0) {
+      if (!result ) {
         agent.add("No se encontraron resultados.");
       } else {
         console.log("Resultado:", result);
