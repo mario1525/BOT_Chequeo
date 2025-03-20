@@ -137,13 +137,13 @@ export async function POST(req: NextRequest) {
      let url : string = ""
       
       if (queryText == "CO2500197.025") {
-          url = "https://raw.githubusercontent.com/Jsanjuan23/Iconos/a8ced1a1e93aa4ea1dd0ec42f481aec63bd44607/ejemplo.pdf"
+          url = "https://drive.google.com/file/d/1UykrOA0NgQrTHVRepiBADtJleHQASxOz/view?usp=sharing"
       } 
       if (queryText == "co2500197.026") {
-         url = "https://raw.githubusercontent.com/Jsanjuan23/Iconos/a8ced1a1e93aa4ea1dd0ec42f481aec63bd44607/ejemplo.pdf"
+         url = "https://drive.google.com/file/d/1DDSUEFBo819IyqaYZ3Zve8PUTRfx9qUW/view?usp=sharing"
       }
       if (queryText == "CO2500293.001") {
-        url = "https://raw.githubusercontent.com/Jsanjuan23/Iconos/a8ced1a1e93aa4ea1dd0ec42f481aec63bd44607/ejemplo.pdf"
+        url = "https://drive.google.com/file/d/1mpYp2t62rHrvkNnbXuSiMQIqSs9LyA5V/view?usp=sharing"
       }
 
       agent.add( "para continuar ingrese su codigo de seguridad" );
