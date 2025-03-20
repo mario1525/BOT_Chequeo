@@ -60,6 +60,21 @@ body {
   cursor: pointer;
 }
 
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+  .nav-links, .contact-btn {
+    display: none; /* Oculta las opciones del menú y el botón de contacto */
+  }
+
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  .nav-actions input {
+    width: 100px; /* Reduce el tamaño del campo de búsqueda */
+  }
+}
+
 .hero {
   background: url("https://imgix-prod.sgs.com/-/media/sgscorp/images/temporary/mineral-and-metal-commodities.cdn.es-CO.1.jpg?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.6&fp-z=1&w=1440&h=450")
     no-repeat center center/cover;

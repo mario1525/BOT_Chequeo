@@ -19,21 +19,21 @@ export default function Home() {
   return (
     <div>
       <header>
-        <nav className="navbar">
-          <div className="logo">SGS</div>
-          <ul className="nav-links">
-            <li><a href="#">Nuestros Servicios</a></li>
-            <li><a href="#">Acerca de SGS</a></li>
-            <li><a href="#">Relaciones con los inversores</a></li>
-            <li><a href="#">Sostenibilidad Corporativa</a></li>
-            <li><a href="#">Noticias y recursos</a></li>
-          </ul>
-          <div className="nav-actions">
-            <input type="text" placeholder="Buscar..." />
-            <button className="contact-btn">Contactar</button>
-          </div>
-        </nav>
-      </header>
+      <nav className="navbar">
+        <div className="logo">SGS</div>
+        <ul className="nav-links">
+          <li><a href="#">Nuestros Servicios</a></li>
+          <li><a href="#">Acerca de SGS</a></li>
+          <li><a href="#">Relaciones con los inversores</a></li>
+          <li><a href="#">Sostenibilidad Corporativa</a></li>
+          <li><a href="#">Noticias y recursos</a></li>
+        </ul>
+        <div className="nav-actions">
+          <input type="text" placeholder="Buscar..." />
+          <button className="contact-btn">Contactar</button>
+        </div>
+      </nav>
+    </header>
 
       <section className="hero"> 
         <div className="hero-content"> 
