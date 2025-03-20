@@ -71,15 +71,12 @@ export async function POST(req: NextRequest) {
 
       const result: string = await getLocalidades( cliente,queryText);
 
-      if (!result ) {
-        agent.add("No se encontraron resultados.");
-      } else {
         console.log("Resultado:", result);
         const responseText = `Se tienen ${result} Muestras en chequeo en la localidad de ${queryText}.`;
          
           agent.add(responseText + "\n\n¿Desea volver al menú principal? \n 1. Sí \n 2. No");
         //agent.add("¿Desea volver al menú principal? \n 1.Si \n 2.No"); 
-      };      
+            
     }
 
 
